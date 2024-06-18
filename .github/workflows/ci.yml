@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [14.x, 16.x, 18.x, 20.14.0]  # Include Node.js version 20.14.0
 
     steps:
     - name: Checkout repository
@@ -23,8 +23,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     
-    - name: Install dependencies
-      run: npm install
+    - name: Install dependencies and rebuild native addons
+      run: |
+        npm install
+        npm rebuild gl  # Rebuild native addon 'gl'
 
     - name: Install ffmpeg-concat
       run: npm install --save ffmpeg-concat
