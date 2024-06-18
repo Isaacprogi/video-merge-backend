@@ -1,0 +1,36 @@
+{
+  "name": "Nuf",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "James",
+  "license": "ISC",
+  "dependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "axios": "^1.6.8",
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "country-list": "^2.3.0",
+    "csurf": "^1.11.0",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
+    "express-rate-limit": "^7.2.0",
+    "express-validator": "^7.1.0",
+    "faker": "^6.6.6",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.2.3",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.13",
+    "password-validator": "^5.3.0",
+    "random-org": "^2.2.0",
+    "socket.io": "^3.0.4",
+    "stripe": "^14.22.0"
+  }
+}
