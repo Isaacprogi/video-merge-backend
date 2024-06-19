@@ -1,9 +1,10 @@
 // controllers/videoController.js
 const path = require('path');
 const fs = require('fs');
-const { concat } = require('ffmpeg-concat');
+const concat = require('ffmpeg-concat');
 
 exports.videoMerge = async (req, res) => {
+  console.log('sksksk')
   const videoA = req.files.videoA[0];
   const videoB = req.files.videoB[0];
   const outputPath = path.join(__dirname, '../uploads', 'mergedVideo.mp4');

@@ -29,7 +29,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Routes
 const videoMergeRoutes = require('./routes/videoMerge');
 
-app.post('/api/videos/merge', mediaUpload.fields([{ name: 'videoA' }, { name: 'videoB' }]), videoMergeRoutes.mergeVideos);
+app.use('/api/videos', videoMergeRoutes)
 
 app.use(errorHandler);
 

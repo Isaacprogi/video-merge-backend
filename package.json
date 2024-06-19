@@ -33,6 +33,7 @@
     "random-org": "^2.2.0",
     "socket.io": "^3.0.4",
     "stripe": "^14.22.0",
-    "ffmpeg-concat": "^1.2.1"
+    "ffmpeg-concat": "^1.2.1",
+    "fluent-ffmpeg":"2.1.3"
   }
 }
