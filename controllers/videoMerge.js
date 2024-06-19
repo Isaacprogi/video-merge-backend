@@ -2,6 +2,11 @@
 const path = require('path');
 const fs = require('fs');
 const concat = require('ffmpeg-concat');
+const ffmpeg = require('fluent-ffmpeg');
+
+const ffprobePath = process.env.FFPROBE_PATH;
+ffmpeg.setFfprobePath(ffprobePath);
+
 
 exports.videoMerge = async (req, res) => {
   console.log('sksksk')
