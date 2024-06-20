@@ -37,4 +37,4 @@ ENV FFMPEG_PATH=/usr/bin/ffmpeg
 EXPOSE 3000
 
 # Use Xvfb to run the application
-CMD ["xvfb-run", "--server-args=-screen 0 1280x1024x24", "npm", "start"]
+CMD ["npm", "start"]
