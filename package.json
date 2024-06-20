@@ -4,6 +4,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node index.js",
+    "preinstall": "apt-get update && apt-get install -y libxi-dev libglu1-mesa-dev",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 0"
   },

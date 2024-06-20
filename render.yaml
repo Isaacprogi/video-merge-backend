@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: your-service-name
+    env: docker
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    plan: free
+    envVars:
+      - key: FFPROBE_PATH
+        value: /usr/bin/ffprobe
+      - key: FFMPEG_PATH
+        value: /usr/bin/ffmpeg
