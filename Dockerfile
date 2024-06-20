@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as a parent image
-FROM node:20.11.0
+FROM node:20
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     libx11-dev \
     libxext-dev \
     ffmpeg \
+    pkg-config \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -29,7 +30,6 @@ ENV FFMPEG_PATH=/usr/bin/ffmpeg
 
 # Expose the port the app runs on
 EXPOSE 3000
-
 
 # Run the application
 CMD ["npm", "start"]
