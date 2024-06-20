@@ -1,6 +1,5 @@
 # Use an official Node.js runtime as a parent image
-FROM node:20.11.0
-
+FROM node:14
 # Install system dependencies
 RUN apt update && apt install ffmpeg -y
 
