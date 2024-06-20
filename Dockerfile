@@ -17,6 +17,9 @@ RUN apt-get update && apt-get install -y \
 # Set the working directory
 WORKDIR /usr/src/app
 
+# Create necessary directories
+RUN mkdir -p /usr/src/app/uploads /tmp
+
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
@@ -34,4 +37,4 @@ ENV FFMPEG_PATH=/usr/bin/ffmpeg
 EXPOSE 3000
 
 # Use Xvfb to run the application
-CMD ["xvfb-run", "--server-args='-screen 0 1280x1024x24'", "npm", "start"]
+CMD ["xvfb-run", "--server-args=-screen 0 1280x1024x24", "npm", "start"]

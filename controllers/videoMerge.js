@@ -3,12 +3,16 @@ const path = require('path');
 const fs = require('fs');
 const concat = require('ffmpeg-concat');
 const ffmpeg = require('fluent-ffmpeg');
+const { promisify } = require('util');
 
 const ffprobePath = process.env.FFPROBE_PATH;
 const ffmpegPath = process.env.FFMPEG_PATH;
 
 ffmpeg.setFfprobePath(ffprobePath);
 ffmpeg.setFfmpegPath(ffmpegPath);
+
+// Promisify fs.unlink for easier async/await usage
+const unlinkAsync = promisify(fs.unlink);
 
 // Function to get video info
 const getVideoInfo = (videoPath) => {
@@ -59,16 +63,11 @@ exports.videoMerge = async (req, res, next) => {
   const reencodedVideoBPath = path.join(__dirname, '../uploads', `reencoded_videoB-${Date.now()}.mp4`);
 
   try {
-    // Get video info before processing
-    const videoAInfo = await getVideoInfo(videoA.path);
-    const videoBInfo = await getVideoInfo(videoB.path);
-
-    await processVideo(videoA.path, reencodedVideoAPath, resolution);
-    await processVideo(videoB.path, reencodedVideoBPath, resolution);
-
-    // Get video info after processing
-    const reencodedVideoAInfo = await getVideoInfo(reencodedVideoAPath);
-    const reencodedVideoBInfo = await getVideoInfo(reencodedVideoBPath);
+    // Process videos in parallel
+    await Promise.all([
+      processVideo(videoA.path, reencodedVideoAPath, resolution),
+      processVideo(videoB.path, reencodedVideoBPath, resolution)
+    ]);
 
     // Merge videos
     await concat({
@@ -83,18 +82,24 @@ exports.videoMerge = async (req, res, next) => {
     });
 
     // Send the merged video file as a downloadable response
-    res.download(outputPath, 'merged-video.mp4', (err) => {
+    res.download(outputPath, 'merged-video.mp4', async (err) => {
       if (err) {
         console.error('Error sending file:', err);
         return next({ message: "Error sending merged video file" });
       }
 
       // Clean up files
-      [videoA.path, videoB.path, reencodedVideoAPath, reencodedVideoBPath, outputPath].forEach((filePath) => {
-        if (fs.existsSync(filePath)) {
-          fs.unlinkSync(filePath);
-        }
-      });
+      try {
+        await Promise.all([
+          unlinkAsync(videoA.path),
+          unlinkAsync(videoB.path),
+          unlinkAsync(reencodedVideoAPath),
+          unlinkAsync(reencodedVideoBPath),
+          unlinkAsync(outputPath)
+        ]);
+      } catch (cleanupError) {
+        console.error('Error cleaning up files:', cleanupError);
+      }
     });
   } catch (error) {
     console.error('Error merging videos:', error);
