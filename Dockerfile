@@ -2,7 +2,14 @@
 FROM node:20
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y libxi-dev libglu1-mesa-dev ffmpeg
+RUN apt-get update && apt-get install -y \
+    libxi-dev \
+    libglu1-mesa-dev \
+    libx11-dev \
+    libxext-dev \
+    ffmpeg \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
 WORKDIR /usr/src/app
@@ -21,7 +28,7 @@ ENV FFPROBE_PATH=/usr/bin/ffprobe
 ENV FFMPEG_PATH=/usr/bin/ffmpeg
 
 # Expose the port the app runs on
-EXPOSE 4000
+EXPOSE 3000
 
 # Run the application
 CMD ["npm", "start"]
