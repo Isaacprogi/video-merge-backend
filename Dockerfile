@@ -1,7 +1,14 @@
 # Use an official Node.js runtime as a parent image
 FROM node:14
+
 # Install system dependencies
-RUN apt update && apt install ffmpeg -y
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    libgl1-mesa-glx \
+    libgl1-mesa-dri \
+    mesa-utils \
+    xvfb \
+    x11-xserver-utils
 
 # Set the working directory
 WORKDIR /usr/src/app
