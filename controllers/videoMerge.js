@@ -4,23 +4,8 @@ const fs = require('fs');
 const concat = require('ffmpeg-concat');
 const ffmpeg = require('fluent-ffmpeg');
 const { promisify } = require('util');
-const createGLContext = require('gl');
 
-process.env.DISPLAY = ':99';
 
-const createGLContext = require('gl');
-
-// Ensure WebGL context can be created
-const width = 800;
-const height = 600;
-const gl = createGLContext(width, height, { preserveDrawingBuffer: true });
-
-if (!gl) {
-  console.error('Failed to create WebGL context');
-  return res.status(500).send({ message: 'Failed to create WebGL context' });
-} else {
-  console.log('WebGL context created successfully');
-}
 const ffprobePath = process.env.FFPROBE_PATH;
 const ffmpegPath = process.env.FFMPEG_PATH;
 
@@ -80,22 +65,6 @@ exports.videoMerge = async (req, res, next) => {
 
   try {
 
-    // Ensure WebGL context can be created
-    process.env.DISPLAY = ':99';
-
-    const createGLContext = require('gl');
-
-    // Ensure WebGL context can be created
-    const width = 800;
-    const height = 600;
-    const gl = createGLContext(width, height, { preserveDrawingBuffer: true });
-
-    if (!gl) {
-      console.error('Failed to create WebGL context');
-      return res.status(500).send({ message: 'Failed to create WebGL context' });
-    } else {
-      console.log('WebGL context created successfully');
-    }
 
     // Process videos in parallel
     await Promise.all([

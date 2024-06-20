@@ -1,3 +1,4 @@
+
 # Use an official Node.js runtime as a parent image
 FROM node:18
 
@@ -11,9 +12,7 @@ RUN apt-get update && apt-get install -y \
     xvfb \
     pkg-config \
     libx11-dev \
-    libxext-dev \
-    libgl1-mesa-glx \
-    libosmesa6
+    libxext-dev
 
 # Set the working directory
 WORKDIR /usr/src/app
@@ -34,5 +33,5 @@ ENV FFMPEG_PATH=/usr/bin/ffmpeg
 # Expose the port the app runs on
 EXPOSE 3000
 
-# Start Xvfb before running the application
-CMD ["sh", "-c", "Xvfb :99 -screen 0 1024x768x24 & npm start"]
+# Run the application
+CMD ["npm", "start"]
