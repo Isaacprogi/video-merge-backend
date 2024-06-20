@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as a parent image
-FROM node:14
+FROM node:16
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -37,4 +37,4 @@ ENV FFMPEG_PATH=/usr/bin/ffmpeg
 EXPOSE 3000
 
 # Use Xvfb to run the application
-CMD ["npm", "start"]
+CMD ["xvfb-run", "--server-args='-screen 0 1280x1024x24'", "npm", "start"]
