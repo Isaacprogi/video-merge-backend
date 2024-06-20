@@ -1,16 +1,8 @@
 # Use an official Node.js runtime as a parent image
-FROM node:16
+FROM node:20.11.0
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y \
-    libxi-dev \
-    libglu1-mesa-dev \
-    libx11-dev \
-    libxext-dev \
-    ffmpeg \
-    pkg-config \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt update && apt install ffmpeg -y
 
 # Set the working directory
 WORKDIR /usr/src/app
