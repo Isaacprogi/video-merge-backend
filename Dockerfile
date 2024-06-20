@@ -8,7 +8,11 @@ RUN apt-get update && apt-get install -y \
     libgl1-mesa-dri \
     mesa-utils \
     xvfb \
-    x11-xserver-utils
+    x11-xserver-utils \
+    libxext6 \
+    libxrender1 \
+    libxtst6 \
+    libxi6
 
 # Set the working directory
 WORKDIR /usr/src/app
@@ -29,5 +33,5 @@ ENV FFMPEG_PATH=/usr/bin/ffmpeg
 # Expose the port the app runs on
 EXPOSE 3000
 
-# Run the application
-CMD ["npm", "start"]
+# Use Xvfb to run the application
+CMD ["xvfb-run", "--server-args='-screen 0 1280x1024x24'", "npm", "start"]
