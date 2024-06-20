@@ -1,14 +1,17 @@
 # Use an official Node.js runtime as a parent image
-FROM node:16
+FROM node:18
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     ffmpeg \
-    libgl1-mesa-glx \
-    libgl1-mesa-dri \
+    libxi-dev \
+    libglu1-mesa-dev \
+    libglew-dev \
     mesa-utils \
     xvfb \
-    x11-xserver-utils
+    pkg-config \
+    libx11-dev \
+    libxext-dev
 
 # Set the working directory
 WORKDIR /usr/src/app
